@@ -63,6 +63,6 @@ class Movies(Base):
 
 
 engine = create_engine(
-    'postgresql+psycopg2://postgres@3.82.107.127/moviegenre.db')
+    'postgresql+psycopg2://postgres@3.82.107.127:80/moviegenre.db')
 
 Base.metadata.create_all(engine)
