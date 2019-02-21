@@ -1,0 +1,9 @@
+.navbar {
+    background-color: #141b41;
+    color: #e8e9f3;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
