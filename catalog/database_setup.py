@@ -62,6 +62,6 @@ class Movies(Base):
         }
 
 
-engine = create_engine('sqlite:///moviegenre.db')
+engine = create_engine('postgresql:///moviegenre.db')
 
 Base.metadata.create_all(engine)

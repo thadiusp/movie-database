@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 
 from database_setup import Genre, Movies, User, Base
 
-engine = create_engine('sqlite:///moviegenre.db')
+engine = create_engine('postgresql:///moviegenre.db')
 
 Base.metadata.bind = engine
 

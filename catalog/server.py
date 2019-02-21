@@ -18,7 +18,7 @@ import requests
 CLIENT_ID = json.loads(open('client_secrets.json', 'r').read())['web']['client_id']
 
 #Connect to database and create the session
-engine = create_engine('sqlite:///moviegenre.db')
+engine = create_engine('postgresql:///moviegenre.db')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = scoped_session(DBSession)
