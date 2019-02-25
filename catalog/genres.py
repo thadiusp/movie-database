@@ -15,7 +15,7 @@ user1 = User(name="Thadius Pitts", email="thadiusp@gmail.com",
 session.add(user1)
 session.commit()
 
-genre1 = Genre(user_id=1, genre_id="Action")
+genre1 = Genre(user_id=1, type="")
 
 session.add(genre1)
 session.commit()
@@ -32,7 +32,7 @@ movie2 = Movies(user_id=1, title='Batman Begins', year='2005',
 session.add(movie2)
 session.commit()
 
-genre2 = Genre(user_id=1, genre_id="Adventure")
+genre2 = Genre(user_id=1, type="Adventure")
 
 session.add(genre2)
 session.commit()
@@ -49,7 +49,7 @@ movie2 = Movies(user_id=1, title="Elysium", year="2013",
 session.add(movie2)
 session.commit()
 
-genre3 = Genre(user_id=1, genre_id="Comedy")
+genre3 = Genre(user_id=1, type="Comedy")
 
 session.add(genre3)
 session.commit()
@@ -66,7 +66,7 @@ movie2 = Movies(user_id=1, title='Blockers', year='2018',
 session.add(movie2)
 session.commit()
 
-genre4 = Genre(user_id=1, genre_id="Drama")
+genre4 = Genre(user_id=1, type="Drama")
 
 session.add(genre4)
 session.commit()
@@ -84,7 +84,7 @@ session.add(movie2)
 session.commit()
 
 
-genre5 = Genre(user_id=1, genre_id="5")
+genre5 = Genre(user_id=1, type="Romance")
 
 session.add(genre5)
 session.commit()
@@ -101,7 +101,7 @@ movie2 = Movies(user_id=1, title="The Notebook", year="2004",
 session.add(movie2)
 session.commit()
 
-genre6 = Genre(user_id=1, genre_id="6")
+genre6 = Genre(user_id=1, type="SciFi")
 
 session.add(genre6)
 session.commit()
