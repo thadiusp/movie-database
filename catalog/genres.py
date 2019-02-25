@@ -15,7 +15,7 @@ user1 = User(name="Thadius Pitts", email="thadiusp@gmail.com",
 session.add(user1)
 session.commit()
 
-genre1 = Genre(user_id=1, type="")
+genre1 = Genre(user_id=1, type="Action")
 
 session.add(genre1)
 session.commit()
