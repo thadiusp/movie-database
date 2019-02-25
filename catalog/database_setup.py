@@ -46,7 +46,7 @@ class Movies(Base):
     year = Column(String(4))
     plot = Column(String(1000))
     poster = Column(String(250))
-    type = Column(String(80), ForeignKey('genre.type'))
+    genre_id = Column(Integer, ForeignKey('genre.id'))
     genre = relationship(Genre)
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
@@ -63,6 +63,7 @@ class Movies(Base):
 
 
 engine = create_engine(
-    'postgresql+psycopg2://postgres:password@localhost/moviegenre.db')
+    'postgresql://catalog:password@localhost/moviegenre')
 
 Base.metadata.create_all(engine)
+print('The tables have been built.')
