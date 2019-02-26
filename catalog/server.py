@@ -3,7 +3,7 @@ app = Flask(__name__)
 
 from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker, scoped_session
-from database_setup import Genre, Movies, User, Base
+from database_setup import Genre, Movies, Editor, Base
 
 #Oauth imports
 from flask import session as login_session
@@ -18,7 +18,7 @@ import requests
 CLIENT_ID = json.loads(open('client_secrets.json', 'r').read())['web']['client_id']
 
 #Connect to database and create the session
-engine = create_engine('postgresql:///moviegenre.db')
+engine = create_engine('postgresql://catalog:password@localhost/moviegenre')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = scoped_session(DBSession)
@@ -108,22 +108,22 @@ def gconnect():
 
 # Create a new user.
 def createUser(login_session):
-    newUser = User(name=login_session['username'],
+    newUser = Editor(name=login_session['username'],
                    email=login_session['email'], picture=login_session['picture'])
     session.add(newUser)
     session.commit()
-    user = session.query(User).filter_by(email=login_session['email']).one()
+    user = session.query(Editor).filter_by(email=login_session['email']).one()
     return user.id
 
 # Get new users info.
 def getUserInfo(user_id):
-    user = session.query(User).filter_by(id=user_id).one()
+    user = session.query(Editor).filter_by(id=user_id).one()
     return user
 
 
 def getUserID(email):
     try:
-        user = session.query(User).filter_by(email=email).one()
+        user = session.query(Editor).filter_by(email=email).one()
         return user.id
     except:
         return None

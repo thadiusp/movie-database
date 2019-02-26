@@ -6,8 +6,8 @@ from sqlalchemy import create_engine
 Base = declarative_base()
 
 
-class User(Base):
-    __tablename__ = 'user'
+class Editor(Base):
+    __tablename__ = 'editor'
 
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
@@ -28,8 +28,8 @@ class Genre(Base):
     __tablename__ = 'genre'
     id = Column(Integer, primary_key=True)
     type = Column(String(250), nullable=False)
-    user_id = Column(Integer, ForeignKey('user.id'))
-    user = relationship(User)
+    editor_id = Column(Integer, ForeignKey('editor.id'))
+    editor = relationship(Editor)
 
     @property
     def serialize(self):
@@ -48,8 +48,8 @@ class Movies(Base):
     poster = Column(String(250))
     genre_id = Column(Integer, ForeignKey('genre.id'))
     genre = relationship(Genre)
-    user_id = Column(Integer, ForeignKey('user.id'))
-    user = relationship(User)
+    editor_id = Column(Integer, ForeignKey('editor.id'))
+    editor = relationship(Editor)
 
     @property
     def serialize(self):
