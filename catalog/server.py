@@ -177,7 +177,7 @@ def showGenres():
 @app.route('/genres/<genre_type>/movies/')
 def showMovies(genre_type):
   genre = session.query(Genre).filter_by(type = genre_type).one()
-  contributor = getUserInfo(login_session['user_id'])
+  contributor = getUserInfo(login_session.get('user_id'))
   movies = session.query(Movies).filter_by(type = genre_type).all()
   if 'username' not in login_session:
     return render_template('publicMovies.html', genre = genre, movies = movies, contributor = contributor)
