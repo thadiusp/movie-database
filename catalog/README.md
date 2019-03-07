@@ -6,7 +6,7 @@ This is a database that breaks movies up by their genre. You can login to Add mo
 
 To access the server connect via ssh with the code below.
 
-`ssh grader@18.188.105.17 -p 2200 -i ~/.ssh/`
+`ssh grader@18.188.105.17 -p 2200 -i ~/.ssh/(name of key file here)`
 
 ## Visiting Website
 
