@@ -1,30 +1,31 @@
-# Movie Database
+# Linux Server running Movie Database
 
 This is a database that breaks movies up by their genre. You can login to Add movies to each genre, edit the movies you have added or delete movies you have previously put in.
 
 ## Getting Started
 
-Run the following Python codes before starting you server.
+To access the server connect via ssh with the code below.
 
-1) To build your database:
+`ssh grader@18.188.105.17 -p 2200 -i ~/.ssh/`
 
- `$ python3 database_setup.py`
+## Visiting Website
 
-2) To populate it with genres and a few movies for each genre:
+To visit the website enter the following url into your browser search bar:
 
- `$ python3 genres.py`
+*http://18.188.105.74.xip.io*
 
-## Running Server
+You can login with your Google account to experience the full spectrum of what you able to do with this site.
 
- Run this code in your virtual machine to launch the server:
+## Software used
 
- `$ python3 server.py`
+The following software was used to build this site.
 
-## Building your database
-
-* You can find your server at http://localhost:8000/ 
-* Login with your Google ID to add/edit/delete your movies
-* Enter a movie title and the program will fill in the rest of the information for you!!!
+* Ubuntu 16.04
+* Apache
+* WSGI
+* Postgresql
+* Flask
+* AWS Lightsail
 
 ### Known Issues
 
