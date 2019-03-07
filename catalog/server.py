@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, jsonify, url_for, flash
 app = Flask(__name__)
+app.secret_key = 'movie database'
 
 from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker, scoped_session
@@ -15,7 +16,7 @@ import json
 from flask import make_response
 import requests
 
-CLIENT_ID = json.loads(open('client_secrets.json', 'r').read())['web']['client_id']
+CLIENT_ID = json.loads(open('/var/www/html/movie-database/catalog/client_secrets.json', 'r').read())['web']['client_id']
 
 #Connect to database and create the session
 engine = create_engine('postgresql://catalog:password@localhost/moviegenre')
@@ -40,7 +41,7 @@ def gconnect():
 
     try:
         #Upgrade the authorization code into a credentials object
-        oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
+        oauth_flow = flow_from_clientsecrets('/var/www/html/movie-database/catalog/client_secrets.json', scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
@@ -177,7 +178,10 @@ def showGenres():
 @app.route('/genres/<genre_type>/movies/')
 def showMovies(genre_type):
   genre = session.query(Genre).filter_by(type = genre_type).one()
-  contributor = getUserInfo(login_session['user_id'])
+  if login_session.get('user_id', None) is not None:
+    contributor = getUserInfo(login_session['user_id'])
+  else:
+    contributor  = '0'
   movies = session.query(Movies).filter_by(genre_id = genre.id).all()
   if 'username' not in login_session:
     return render_template('publicMovies.html', genre = genre, movies = movies, contributor = contributor)
@@ -194,7 +198,7 @@ def newMovie(genre_type):
   if request.method == 'POST':
     genre = session.query(Genre).filter_by(type = genre_type).one()
     user_id = getUserInfo(login_session['user_id'])
-    newMovie = Movies(title = request.form['title'], year = request.form['year'], plot = request.form['plot'], poster = request.form['poster'], type = genre_type, user_id = user_id.id)
+    newMovie = Movies(title = request.form['title'], year = request.form['year'], plot = request.form['plot'], poster = request.form['poster'], genre_id = genre.id, editor_id = user_id.id)
     session.add(newMovie)
     session.commit()
     flash('%s was added to the list successfully' % newMovie.title)
@@ -209,7 +213,7 @@ def editMovie(genre_type, movie_id):
   genre = session.query(Genre).filter_by(type = genre_type).one()
   if 'username' not in login_session:
     return redirect('/login')
-  if editedMovie.user_id != login_session['user_id']:
+  if editedMovie.editor_id != login_session['user_id']:
     return "<script>function alert() {alert('You are not Authorized to edit this movie.');}</script><body onload='alert()'>"
   if request.method == 'POST':
     if request.form['title']:
@@ -232,7 +236,7 @@ def deleteMovie(genre_type, movie_id):
   movieToDelete = session.query(Movies).filter_by(id = movie_id).one()
   if 'username' not in login_session:
     return redirect('/login')
-  if movieToDelete.user_id != login_session['user_id']:
+  if movieToDelete.editor_id != login_session['user_id']:
     return "<script>function alert() {alert('You are not Authorized to delete this movie.');}</script><body onload='alert()'>"
   if request.method == 'POST':
     session.delete(movieToDelete)
@@ -247,5 +251,4 @@ def deleteMovie(genre_type, movie_id):
 
 
 if __name__ == '__main__':
-  app.debug = False
   app.run()
