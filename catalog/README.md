@@ -31,6 +31,18 @@ The following software was used to build this site.
 
 * Currently you must enter the exact title or the movie will populate with undefined variables.
 
+## Resources Used
+
+I used the following resources to help build this project.
+
+* StackOverflow
+* Flask Documentation
+* Apache Documentation
+* Udacity Student Hub
+* Google Oauth Documentation
+* Github
+* Postgresql Documentation
+
 ## License
 
 This repository is licensed under the General Public License. You can view it [here](https://choosealicense.com/licenses/gpl-3.0/)
