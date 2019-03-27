@@ -154,7 +154,7 @@ def gdisconnect():
 @app.route('/genres/<genre_type>/movies/JSON')
 def genreListJSON(genre_type):
   genre = session.query(Genre).filter_by(type = genre_type).one()
-  movies = session.query(Movies).filter_by(type = genre_type).all()
+  movies = session.query(Movies).filter_by(genre_id = genre.id).all()
   return jsonify(MovieList = [m.serialize for m in movies])
 
 #Show the JSON for a specified movie
